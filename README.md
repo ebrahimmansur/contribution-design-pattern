@@ -122,7 +122,7 @@ class HomeBottomNavigationBarContribution
   BottomNavigationBarContributionData get state =>
       const BottomNavigationBarContributionData(
         icon: Icons.home,
-        label: "Home",
+        label: "Home-Screen",
       );
 }
 ```
