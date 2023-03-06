@@ -115,14 +115,14 @@ class HomeBottomNavigationBarContribution
 
   @override
   Widget view(BuildContext context) {
-    return const Text("Home");
+    return const Text("Home-Screen");
   }
 
   @override
   BottomNavigationBarContributionData get state =>
       const BottomNavigationBarContributionData(
         icon: Icons.home,
-        label: "Home-Screen",
+        label: "Home",
       );
 }
 ```
