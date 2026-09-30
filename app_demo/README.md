@@ -1,16 +1,35 @@
 # app_demo
 
-A new Flutter project.
+Flutter demo of the **Contribution design pattern**: feature teams contribute tabs to a shared bottom navigation bar without the bar (or the shared code) knowing about them.
+
+See the [root README](../README.md) for the design and the list of improvements.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run
+flutter test
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Project layout
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+lib/
+├── main.dart                          # composition root: registers every team, hosts the bottom nav
+├── common/contributions/              # shared contracts, knows nothing about the teams
+│   ├── contribution.contracts.dart    # IContribution, IOrderedContribution
+│   ├── bottom.navbar.contribution.contract.dart
+│   ├── contribution.registry.dart     # register / registerAll, duplicate-id guard
+│   └── contribution.manager.dart      # enabled + typed + ordered contributions
+├── home_team/
+│   ├── home.team.dart                 # registerHomeTeam()
+│   └── contribution.home.team.dart
+└── profile_team/
+    ├── profile.team.dart              # registerProfileTeam()
+    └── contribution.profile.team.dart
+test/
+├── contribution_manager_test.dart     # registry + manager rules
+├── widget_test.dart                   # entry point behaviour
+└── fakes/fake_contributions.dart
+```
