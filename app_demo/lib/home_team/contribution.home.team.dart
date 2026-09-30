@@ -10,6 +10,9 @@ class HomeBottomNavigationBarContribution
   bool get isEnabled => true;
 
   @override
+  int get order => 0;
+
+  @override
   Widget view(BuildContext context) {
     return const Text("Home");
   }

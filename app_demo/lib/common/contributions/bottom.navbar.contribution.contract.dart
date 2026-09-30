@@ -2,7 +2,8 @@
 import 'package:flutter/widgets.dart';
 import 'contribution.contracts.dart';
 
-abstract class IBottomNavigationBarContribution implements IContribution {
+abstract class IBottomNavigationBarContribution
+    implements IOrderedContribution {
   BottomNavigationBarContributionData get state;
   Widget view(BuildContext context);
 }

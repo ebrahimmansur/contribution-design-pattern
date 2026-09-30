@@ -10,6 +10,9 @@ class ProfileBottomNavigationBarContribution
   bool get isEnabled => true;
 
   @override
+  int get order => 100;
+
+  @override
   Widget view(BuildContext context) {
     return const Text("Profile-Screen");
   }
