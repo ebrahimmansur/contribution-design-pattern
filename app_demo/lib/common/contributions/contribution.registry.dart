@@ -1,12 +1,19 @@
-import '../../home_team/contribution.home.team.dart';
-import '../../profile_team/contribution.profile.team.dart';
 import 'contribution.contracts.dart';
 
 ///The component that encapsulate the responsibility of registering contributions.
+///
+///It knows nothing about the teams: each team registers its own contributions
+///from the composition root (`main.dart`), so `common` never imports a feature.
 class ContributionRegistry {
-  List<IContribution> get contributions => [
-        //add contributions [we can use DI to avoid cycle-dependency reference]
-        ProfileBottomNavigationBarContribution(),
-        HomeBottomNavigationBarContribution()
-      ];
+  final List<IContribution> _contributions = [];
+
+  void register(IContribution contribution) {
+    _contributions.add(contribution);
+  }
+
+  void registerAll(Iterable<IContribution> contributions) {
+    contributions.forEach(register);
+  }
+
+  List<IContribution> get contributions => List.unmodifiable(_contributions);
 }

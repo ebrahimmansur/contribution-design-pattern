@@ -6,7 +6,7 @@ import 'package:app_demo/main.dart';
 void main() {
   testWidgets('bottom navigation bar shows team contributions',
       (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(registry: createRegistry()));
 
     expect(find.byType(BottomNavigationBar), findsOneWidget);
     expect(find.text('Home'), findsWidgets);
