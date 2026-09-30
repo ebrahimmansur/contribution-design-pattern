@@ -60,20 +60,50 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.fixed,
-        onTap: (value) => setState(() {
-          _selectedIndex = value;
-        }),
-        items: bottomContribution
-            .map((e) => BottomNavigationBarItem(
-                icon: Icon(e.state.icon), label: e.state.label))
-            .toList(),
-      ),
-      body: Center(
-        child: bottomContribution[_selectedIndex].view(context),
-      ),
+      bottomNavigationBar: _buildBottomNavigationBar(bottomContribution),
+      body: _buildBody(bottomContribution),
     );
   }
+
+  ///BottomNavigationBar needs at least two items, so with fewer
+  ///contributions the entry point simply hides it.
+  Widget? _buildBottomNavigationBar(
+      List<IBottomNavigationBarContribution> contributions) {
+    if (contributions.length < 2) return null;
+
+    return BottomNavigationBar(
+      currentIndex: _safeIndex(contributions),
+      type: BottomNavigationBarType.fixed,
+      onTap: (value) => setState(() {
+        _selectedIndex = value;
+      }),
+      items: contributions
+          .map((e) => BottomNavigationBarItem(
+              icon: Icon(e.state.icon), label: e.state.label))
+          .toList(),
+    );
+  }
+
+  ///IndexedStack keeps every team's view alive, so switching tabs
+  ///does not throw away their state.
+  Widget _buildBody(List<IBottomNavigationBarContribution> contributions) {
+    if (contributions.isEmpty) {
+      return const Center(child: Text('No contributions available'));
+    }
+
+    return IndexedStack(
+      index: _safeIndex(contributions),
+      children: contributions
+          .map((e) => Center(
+                key: ValueKey(e.contributionId),
+                child: e.view(context),
+              ))
+          .toList(),
+    );
+  }
+
+  ///A contribution can be disabled at runtime, so the stored index may be
+  ///out of range for the current list.
+  int _safeIndex(List<IBottomNavigationBarContribution> contributions) =>
+      _selectedIndex.clamp(0, contributions.length - 1);
 }
