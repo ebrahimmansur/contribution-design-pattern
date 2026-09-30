@@ -7,7 +7,13 @@ import 'contribution.contracts.dart';
 class ContributionRegistry {
   final List<IContribution> _contributions = [];
 
+  ///Throws a [StateError] when another contribution already uses the same id,
+  ///so two teams can't silently collide.
   void register(IContribution contribution) {
+    final id = contribution.contributionId;
+    if (_contributions.any((c) => c.contributionId == id)) {
+      throw StateError('A contribution with id "$id" is already registered.');
+    }
     _contributions.add(contribution);
   }
 

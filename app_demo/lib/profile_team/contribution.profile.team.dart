@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ProfileBottomNavigationBarContribution
     implements IBottomNavigationBarContribution {
   @override
-  String get contributionId => 'profile-bottom-navigationBar-contribution';
+  String get contributionId => 'profile.bottom-nav';
 
   @override
   bool get isEnabled => true;

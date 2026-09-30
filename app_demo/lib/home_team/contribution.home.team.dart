@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class HomeBottomNavigationBarContribution
     implements IBottomNavigationBarContribution {
   @override
-  String get contributionId => 'Home-BottomNavigationBar-Contribution';
+  String get contributionId => 'home.bottom-nav';
 
   @override
   bool get isEnabled => true;
